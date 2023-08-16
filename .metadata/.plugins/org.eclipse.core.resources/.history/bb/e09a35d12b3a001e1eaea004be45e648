@@ -1,0 +1,12 @@
+package com.ubp.services;
+
+import com.ubp.dto.PersonajeDTO;
+
+public class PersonajeServicioImpl implements PersonajeServicio{
+
+	@Override
+	public PersonajeDTO crearPersonaje(PersonajeDTO personajeDto) {
+		return null;
+	} 
+
+}

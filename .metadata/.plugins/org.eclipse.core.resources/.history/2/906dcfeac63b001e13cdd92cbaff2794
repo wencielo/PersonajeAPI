@@ -1,0 +1,18 @@
+package com.ubp.demo.services;
+
+import org.springframework.stereotype.Service;
+import com.ubp.demo.dto.PersonajeDTO;
+import com.ubp.demo.dto.PersonajeRespuestaDTO;
+
+@Service
+public interface PersonajeServicio {
+	
+	public PersonajeDTO crearPersonaje(PersonajeDTO personajeDto);
+	
+	public PersonajeRespuestaDTO listarPersonajes(int numeroDePagina, int tamañoPagina);
+	
+	public PersonajeDTO buscarPersonajePorId(Integer Id);
+	
+	public void eliminarPersonaje(Integer id);
+
+}

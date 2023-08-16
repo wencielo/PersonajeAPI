@@ -1,0 +1,11 @@
+package com.ubp.demo.services;
+
+import org.springframework.stereotype.Service;
+import com.ubp.demo.dto.PersonajeDTO;
+
+@Service
+public interface PersonajeServicio {
+	
+	public PersonajeDTO crearPersonaje(PersonajeDTO personajeDto);
+
+}

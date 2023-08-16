@@ -1,0 +1,69 @@
+package com.ubp.demo.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ubp.demo.dto.PersonajeDTO;
+import com.ubp.demo.repositories.PersonajeRepositorio;
+import com.ubp.demo.models.Personaje;
+
+@Service
+public class PersonajeServicioImpl implements PersonajeServicio{
+
+	@Autowired //Para inyectar
+	private PersonajeRepositorio personajeRepositorio;
+	
+	private Personaje mapearDto(PersonajeDTO PersonajeDto) {
+		//Convierto de DTO a Entidad
+		Personaje personaje = new Personaje();
+		
+		personaje.setName(personajeDto.getName());
+		personaje.setStatus(personajeDto.getStatus());
+		personaje.setSpecies(personajeDto.getSpecies());
+		personaje.setType(personajeDto.getType());
+		personaje.setGender(personajeDto.getGender());
+		personaje.setOrigin(personajeDto.getOrigin());
+		personaje.setLocation(personajeDto.getLocation());
+		personaje.setImagen(personajeDto.getImagen());
+		personaje.setEpisode(personajeDto.getEpisode());
+		personaje.setUrl(personajeDto.getUrl());
+		personaje.setCreated(personajeDto.getCreated());
+		return personaje;
+	}
+	
+	@Override
+	public PersonajeDTO crearPersonaje(PersonajeDTO personajeDto) {
+		//Convierto de DTO a Entidad
+		Personaje personaje = mapearDto(personajeDto);
+		
+		Personaje nuevoPersonaje = personajeRepositorio.save(personaje);
+		
+		//Convierto de Entidad a DTO
+		PersonajeDTO personajeRespuesta = new PersonajeDTO();
+		
+		personajeRespuesta.setId(nuevoPersonaje.getId());
+		personajeRespuesta.setName(nuevoPersonaje.getName());
+		personajeRespuesta.setStatus(nuevoPersonaje.getStatus());
+		personajeRespuesta.setSpecies(nuevoPersonaje.getSpecies());
+		personajeRespuesta.setType(nuevoPersonaje.getType());
+		personajeRespuesta.setGender(nuevoPersonaje.getGender());
+		personajeRespuesta.setOrigin(nuevoPersonaje.getOrigin());
+		personajeRespuesta.setLocation(nuevoPersonaje.getLocation());
+		personajeRespuesta.setImagen(nuevoPersonaje.getImagen());
+		personajeRespuesta.setEpisode(nuevoPersonaje.getEpisode());
+		personajeRespuesta.setUrl(nuevoPersonaje.getUrl());
+		personajeRespuesta.setCreated(nuevoPersonaje.getCreated());
+		
+		return personajeRespuesta;
+	}
+
+	@Override
+	public List<PersonajeDTO> listarPersonajes() {
+		List<Personaje> personajes = personajeRepositorio.findAll();
+				
+		return null;
+	} 
+
+}

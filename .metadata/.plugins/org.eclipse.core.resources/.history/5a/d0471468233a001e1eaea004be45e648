@@ -1,0 +1,5 @@
+package com.ubp.services;
+
+public interface PersonajeServicio {
+
+}

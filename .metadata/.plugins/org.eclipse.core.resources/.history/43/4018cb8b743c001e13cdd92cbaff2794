@@ -1,0 +1,155 @@
+package com.ubp.demo.services;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.ubp.demo.dto.PersonajeDTO;
+import com.ubp.demo.dto.PersonajeRespuestaDTO;
+import com.ubp.demo.exceptiones.ResourceNotFoundException;
+import com.ubp.demo.repositories.PersonajeRepositorio;
+import com.ubp.demo.models.Personaje;
+
+@Service
+public class PersonajeServicioImpl implements PersonajeServicio{
+	
+	
+	@Autowired //Para inyectar
+	private PersonajeRepositorio personajeRepositorio;	
+	private final RestTemplate restTemplate; 
+	private final String URL_BASE ="https://64dc5be2e64a8525a0f66680.mockapi.io/apiExt/Personaje";
+	
+	@Autowired
+    public PersonajeServicioImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+	
+	//Convierto de DTO a Entidad
+	private Personaje mapearDto(PersonajeDTO personajeDto) {
+		
+		Personaje personaje = new Personaje();
+		
+		personaje.setName(personajeDto.getName());
+		personaje.setStatus(personajeDto.getStatus());
+		personaje.setSpecies(personajeDto.getSpecies());
+		personaje.setType(personajeDto.getType());
+		personaje.setGender(personajeDto.getGender());
+		personaje.setImagen(personajeDto.getImagen());
+		personaje.setUrl(personajeDto.getUrl());
+		return personaje;
+	}
+	
+	//Convierto de Entidad a DTO
+	private PersonajeDTO mapearEntidad(Personaje personaje) {
+		
+		PersonajeDTO personajeRespuesta = new PersonajeDTO();
+		//try {
+		personajeRespuesta.setId(personaje.getId().toString());
+		personajeRespuesta.setName(personaje.getName());
+		personajeRespuesta.setStatus(personaje.getStatus());
+		personajeRespuesta.setSpecies(personaje.getSpecies());
+		personajeRespuesta.setType(personaje.getType());
+		personajeRespuesta.setGender(personaje.getGender());
+		personajeRespuesta.setImagen(personaje.getImagen());
+		personajeRespuesta.setUrl(personaje.getUrl());
+		
+		return personajeRespuesta;
+		/*}
+		catch(Exception e){
+			return new PersonajeDTO();
+		}*/
+	}
+	
+	@Override
+	public PersonajeDTO crearPersonaje(PersonajeDTO personajeDto) {
+		//Convierto de DTO a Entidad
+		Personaje personaje = mapearDto(personajeDto);		
+		Personaje nuevoPersonaje = personajeRepositorio.save(personaje);//Esto seria como el DAO		
+		//Convierto de Entidad a DTO
+		PersonajeDTO personajeRespuesta = mapearEntidad(nuevoPersonaje);			
+		
+		return personajeRespuesta;
+	}
+    
+	
+	@Override
+	public PersonajeRespuestaDTO listarPersonajes(int numeroDePagina, int tamañoPagina) {
+		Pageable pageable = PageRequest.of(numeroDePagina, tamañoPagina);
+		Page<Personaje> personajes = personajeRepositorio.findAll(pageable);
+		List<Personaje> personajesPaginadas = personajes.getContent();
+						
+		List<PersonajeDTO> contenido = new ArrayList<>();
+		
+		//Recorremos los personajes, los mapea y las agrega a la lista como personajesDTO
+		for (Personaje personaje : personajesPaginadas) {
+			contenido.add(mapearEntidad(personaje));			
+		}
+		
+		PersonajeRespuestaDTO personajeRespuesta = new PersonajeRespuestaDTO();
+		
+		personajeRespuesta.setContenido(contenido);//Array de los personajes
+		personajeRespuesta.setCantidadPaginas(personajes.getTotalPages());// Total de paginas
+		personajeRespuesta.setTamañoPagina(personajes.getSize());// El tamño
+		personajeRespuesta.setCantidadElementos(personajes.getTotalElements());//Cuantos personajes hay en total
+		personajeRespuesta.setNumeroDePagina(personajes.getNumber());//Numero de pagina en que estoy parado
+		personajeRespuesta.setUltima(personajes.isLast());//Si estamos en la ultima pagina
+		
+		return personajeRespuesta;
+	}
+
+	@Override
+	public PersonajeDTO buscarPersonajePorId(Integer id) {
+		//try {
+		Personaje personaje = personajeRepositorio.findById(id).orElseThrow(() ->  new ResourceNotFoundException("Personaje","id",id));
+		return mapearEntidad(personaje);//Devolveria un Personaje DTO
+		/*}
+		catch(Exception e) {
+			return new PersonajeDTO();
+		}*/
+	}
+
+
+	//Esto es para traer con rest Template los datos de la api externa
+	@Override
+	public List<PersonajeDTO> obtenerPersonajes(){
+		PersonajeDTO[] respuesta = restTemplate.getForObject(URL_BASE, PersonajeDTO[].class);
+		
+		
+		for(PersonajeDTO personajeDto: respuesta)
+		{
+			Personaje personaje = mapearDto(personajeDto);		
+			personajeRepositorio.save(personaje);
+		}
+		
+		return Arrays.asList(respuesta);
+	}
+
+	@Override
+	public PersonajeDTO actualizarPersonaje(PersonajeDTO personajeDto, Integer id) {
+		Personaje personaje = personajeRepositorio.findById(id).orElseThrow(() ->  new ResourceNotFoundException("Personaje","id",id));
+		personaje.setName(personajeDto.getName());
+		personaje.setStatus(personajeDto.getStatus());
+		personaje.setSpecies(personajeDto.getSpecies());
+		personaje.setType(personajeDto.getType());
+		personaje.setGender(personajeDto.getGender());
+		personaje.setImagen(personajeDto.getImagen());
+		personaje.setUrl(personajeDto.getUrl());
+		
+		Personaje nuevoPersonaje = personajeRepositorio.save(personaje);
+		return mapearEntidad(nuevoPersonaje);
+	}
+	
+	@Override
+	public void eliminarPersonaje(Integer id) {
+		Personaje personaje = personajeRepositorio.findById(id).orElseThrow(() ->  new ResourceNotFoundException("Personaje","id",id));
+		personajeRepositorio.delete(personaje);
+		
+	} 
+}

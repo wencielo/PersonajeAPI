@@ -1,0 +1,16 @@
+package com.ubp.demo.repositories;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.ubp.demo.models.Rol;
+import com.ubp.demo.models.Usuario;
+
+@Repository
+public interface RolRepositorio extends JpaRepository<Usuario,Long>{
+	
+	public Optional<Rol> findByName(String nombre);
+
+}

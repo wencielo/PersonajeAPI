@@ -1,0 +1,74 @@
+package com.ubp.demo.dto;
+
+import java.util.List;
+
+public class PersonajeRespuestaDTO {
+	private List<PersonajeDTO> contenido;
+	private int numeroDePagina;
+	private int tamañoPagina;
+	private long cantidadElementos;
+	private int cantidadPaginas;
+	private Boolean ultima;
+	
+
+	public PersonajeRespuestaDTO() {
+	}
+	
+	public PersonajeRespuestaDTO(List<PersonajeDTO> contenido, int numeroDePagina, int tamañoPagina,
+			long cantidadElementos, int cantidadPaginas, Boolean ultima) {
+		super();
+		this.contenido = contenido;
+		this.numeroDePagina = numeroDePagina;
+		this.tamañoPagina = tamañoPagina;
+		this.cantidadElementos = cantidadElementos;
+		this.cantidadPaginas = cantidadPaginas;
+		this.ultima = ultima;
+	}
+
+	public List<PersonajeDTO> getContenido() {
+		return contenido;
+	}
+	public void setContenido(List<PersonajeDTO> contenido) {
+		this.contenido = contenido;
+	}
+	public int getNumeroDePagina() {
+		return numeroDePagina;
+	}
+	public void setNumeroDePagina(int numeroDePagina) {
+		this.numeroDePagina = numeroDePagina;
+	}
+	public int getTamañoPagina() {
+		return tamañoPagina;
+	}
+	public void setTamañoPagina(int tamañoPagina) {
+		this.tamañoPagina = tamañoPagina;
+	}
+	public long getCantidadElementos() {
+		return cantidadElementos;
+	}
+	public void setCantidadElementos(int cantidadElementos) {
+		this.cantidadElementos = cantidadElementos;
+	}
+	public int getCantidadPaginas() {
+		return cantidadPaginas;
+	}
+	public void setCantidadPaginas(int cantidadPaginas) {
+		this.cantidadPaginas = cantidadPaginas;
+	}
+	public Boolean getUltima() {
+		return ultima;
+	}
+	public void setUltima(Boolean ultima) {
+		this.ultima = ultima;
+	}
+
+	@Override
+	public String toString() {
+		return "PersonajeRespuestaDTO [contenido=" + contenido + ", numeroDePagina=" + numeroDePagina
+				+ ", tamañoPagina=" + tamañoPagina + ", cantidadElementos=" + cantidadElementos + ", cantidadPaginas="
+				+ cantidadPaginas + ", ultima=" + ultima + "]";
+	}
+	
+	
+
+}

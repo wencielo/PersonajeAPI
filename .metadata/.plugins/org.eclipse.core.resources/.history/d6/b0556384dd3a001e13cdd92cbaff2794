@@ -1,0 +1,28 @@
+package com.ubp.demo.controladores;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ubp.demo.dto.PersonajeDTO;
+import com.ubp.demo.services.PersonajeServicio;
+
+@RestController
+@RequestMapping("https://rickandmortyapi.com/api") //Cuando mapee esta url va a ir a PersonajeControlador
+public class PersonajeControlador {
+	
+	//Inyectamos el servicio
+	@Autowired
+	private PersonajeServicio personajeServicio;
+	
+	@PostMapping
+	public ResponseEntity<PersonajeDTO> guardar(@RequestBody PersonajeDTO PersonajeDto){
+		return new ResponseEntity<>(personajeServicio.crearPersonaje(PersonajeDto), HttpStatus.CREATED);
+	}
+	
+
+}

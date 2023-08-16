@@ -1,0 +1,31 @@
+package com.ubp.models;
+
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name" })})
+public class Personajes {
+	
+	@Id
+	private Integer id;
+	private String name;
+	private String status;
+	private String species;
+	private String type;
+	private String gender;
+	private Integer origin; //ojo
+	private Integer location; //ojo
+	private String imagen;
+	private String episode; //ojo
+	private String url;
+	
+	@temporal(TemporalType.TIMESTAMP)
+	private Date datecreated;
+	
+
+}

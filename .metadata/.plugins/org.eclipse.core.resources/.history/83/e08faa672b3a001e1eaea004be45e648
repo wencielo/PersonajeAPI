@@ -1,0 +1,9 @@
+package com.ubp.services;
+
+import com.ubp.dto.PersonajeDTO;
+
+public interface PersonajeServicio {
+	
+	public PersonajeDTO crearPersonaje(PersonajeDTO personajeDto);
+
+}

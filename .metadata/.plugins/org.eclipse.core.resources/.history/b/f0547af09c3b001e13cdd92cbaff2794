@@ -1,0 +1,5 @@
+package com.ubp.demo.seguridad;
+
+public class CustomUserDetailsService {
+
+}

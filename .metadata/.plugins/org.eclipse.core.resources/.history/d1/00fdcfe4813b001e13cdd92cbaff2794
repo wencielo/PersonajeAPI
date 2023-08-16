@@ -1,0 +1,5 @@
+package com.ubp.demo.models;
+
+public class Usuario {
+
+}

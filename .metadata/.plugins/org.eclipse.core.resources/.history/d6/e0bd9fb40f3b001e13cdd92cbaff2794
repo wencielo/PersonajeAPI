@@ -1,0 +1,5 @@
+package com.ubp.demo.dto;
+
+public class PersonajeRespuestaDTO {
+
+}

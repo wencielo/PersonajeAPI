@@ -1,0 +1,20 @@
+package com.ubp.demo.controladores;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ubp.demo.dto.PersonajeDTO;
+
+@RestController
+@RequestMapping("/apiV1/personaje") 
+public class inicialControlador {
+	@GetMapping
+	public ResponseEntity<List<PersonajeDTO>> traerPersonajes(){
+		return new ResponseEntity<> (personajeServicio.obtenerPersonajes(), HttpStatus.OK);
+	}
+}

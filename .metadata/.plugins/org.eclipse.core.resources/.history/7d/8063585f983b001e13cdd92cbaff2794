@@ -1,0 +1,5 @@
+package com.ubp.demo.repositories;
+
+public interface RolRepositorio {
+
+}

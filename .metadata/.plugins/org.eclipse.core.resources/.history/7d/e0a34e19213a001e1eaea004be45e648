@@ -1,0 +1,24 @@
+package com.ubp.dto;
+
+import java.util.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+public class PersonajeDTO {
+
+	private Integer id;
+	private String name;
+	private String status;
+	private String species;
+	private String type;
+	private String gender;
+	private Integer origin; //ojo
+	private Integer location; //ojo
+	private String imagen;
+	private String episode; //ojo
+	private String url;
+	
+	@Temporal(value = TemporalType.TIMESTAMP)
+	private Date datecreated;
+	
+}

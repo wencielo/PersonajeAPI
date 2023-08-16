@@ -1,0 +1,107 @@
+package com.ubp.demo.dto;
+
+import java.util.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+
+public class PersonajeDTO {
+
+	private Integer id;
+	private String name;
+	private String status;
+	private String species;
+	private String type;
+	private String gender;
+	private String imagen;
+	private String url;
+    @Temporal(value = TemporalType.TIMESTAMP)
+	private Date created;
+    
+    
+    
+	public PersonajeDTO() {
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getSpecies() {
+		return species;
+	}
+	public void setSpecies(String species) {
+		this.species = species;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public Integer getOrigin() {
+		return origin;
+	}
+	public void setOrigin(Integer origin) {
+		this.origin = origin;
+	}
+	public Integer getLocation() {
+		return location;
+	}
+	public void setLocation(Integer location) {
+		this.location = location;
+	}
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+	public String getEpisode() {
+		return episode;
+	}
+	public void setEpisode(String episode) {
+		this.episode = episode;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	@Override
+	public String toString() {
+		return "PersonajeDTO [id=" + id + ", name=" + name + ", status=" + status + ", species=" + species + ", type="
+				+ type + ", gender=" + gender + ", origin=" + origin + ", location=" + location + ", imagen=" + imagen
+				+ ", episode=" + episode + ", url=" + url + ", created=" + created + "]";
+	}
+    
+    
+	
+}
